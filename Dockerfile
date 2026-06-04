@@ -4,7 +4,7 @@
 #
 # Build arg PBF_URL permite cambiar el extracto (p.ej. una sub-región más liviana).
 
-FROM osrm/osrm-backend:v5.27.1 AS build
+FROM osrm/osrm-backend:v5.25.0 AS build
 ARG PBF_URL=https://download.geofabrik.de/south-america/colombia-latest.osm.pbf
 WORKDIR /data
 RUN apt-get update && apt-get install -y --no-install-recommends wget ca-certificates \
@@ -15,7 +15,7 @@ RUN wget -q -O colombia.osm.pbf "$PBF_URL" \
  && osrm-customize colombia.osrm \
  && rm -f colombia.osm.pbf
 
-FROM osrm/osrm-backend:v5.27.1
+FROM osrm/osrm-backend:v5.25.0
 WORKDIR /data
 COPY --from=build /data/ /data/
 EXPOSE 5000
